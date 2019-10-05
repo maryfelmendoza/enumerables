@@ -7,7 +7,7 @@ module Enumerable
 
   def my_each_with_index
     for i in 0...self.length
-      yield [self[i], i]
+      yield (self[i], i)
     end
   end
 
@@ -23,18 +23,18 @@ module Enumerable
   end
 
   def my_any?
-    self.my_each { |i| return true if yield(i) } 
+    self.my_each { |i| return true if yield(i) }
     false
   end
 
   def my_none?
-    self.my_each { |i| return false if yield(i) } 
+    self.my_each { |i| return false if yield(i) }
     true
   end
 
   def my_count
     total = 0
-    self.my_each { |i| if (yield(i)) then total += 1 end }
+    self.my_each { |i| if yield i then total += 1 end }
     return total
   end
 
