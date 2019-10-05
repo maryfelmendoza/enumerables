@@ -1,5 +1,4 @@
 module Enumerable
-  
   def my_each
     for i in 0...self.length
       yield (self[i])
@@ -54,5 +53,4 @@ module Enumerable
   def multiply_els
     arr.my_inject { |x,y| x*y}
   end
-
 end
