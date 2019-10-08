@@ -2,8 +2,7 @@
 
 module Enumerable
   def my_each
-    while i < self.length
-      yield(self[i])
+    while i < self.length { |i| yield(self[i]) }
     end
   end
 
