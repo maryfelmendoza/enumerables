@@ -43,7 +43,7 @@ module Enumerable
   def my_map(&block)
     arr = []
     self.my_each { |i| result.push(block.call(i)) }
-    return arr
+    arr
   end
 
   def my_inject
