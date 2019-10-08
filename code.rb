@@ -37,7 +37,7 @@ module Enumerable
   def my_count
     total = 0
     self.my_each { |i| if yield i then total += 1 end }
-    return total
+    total
   end
 
   def my_map(&block)
