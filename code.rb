@@ -2,25 +2,21 @@
 
 module Enumerable
   def my_each
-    if block_given?
       i = 0
       while i < self.size
         yield(self[i])
         i += 1
       end
       self
-    end
   end
 
   def my_each_with_index
-    if block_given?
       i = 0
       while i < self.size
         yield(self[i])
         i += 1
       end
       self
-    end
   end
 
   def my_select
