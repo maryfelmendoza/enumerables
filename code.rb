@@ -42,7 +42,7 @@ module Enumerable
 
   def my_count
     total = 0
-    my_each { |i| if yield i then total += 1 end }
+    my_each { |i| yield i && total += 1 }
     total
   end
 
