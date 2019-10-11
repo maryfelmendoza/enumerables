@@ -2,11 +2,21 @@
 
 module Enumerable
   def my_each
-    while i < self.length { |i| yield(self[i]) }
+    i = 0
+    while i < self.size
+      yield(self[i])
+      i += 1
+    end
+    self
   end
 
   def my_each_with_index
-    while i < self.length { |i| yield(self[i], i) }
+    i = 0
+    while i < self.size
+      yield(self[i], i)
+      i += 1
+    end
+    self
   end
 
   def my_select
