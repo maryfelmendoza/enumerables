@@ -41,19 +41,9 @@ module Enumerable
   end
 
   def my_count
-    i = 0
-    count = []
-
-    if block_given?
-      while i < self.size
-        if yield(self[i])
-          count << self[i]
-        end
-        i += 1
-      end
-      return count.size
-    end
-    self.size
+    total = 0
+    my_each { |i| if yield i then total += 1 end }
+    total
   end
 
   def my_map(&block)
