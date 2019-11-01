@@ -72,13 +72,7 @@ module Enumerable
   end
 
   def my_count
-    total = 0
-    my_each do |i|
-      if yield i
-        total += 1
-      end
-    end
-    total
+    my_select {|x| yield(x) }.size
   end
 
   def my_map(&block)
