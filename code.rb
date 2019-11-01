@@ -3,7 +3,8 @@
 module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
-    arr = self.class == Array ? self : to_a  
+
+    arr = self.class == Array ? self : to_a
     i = 0
     while i < size
       yield(arr[i])
@@ -25,9 +26,10 @@ module Enumerable
 
   def my_select
     return(:my_select) unless block_given?
-      result = []
-      my_each { |i| result.push(i) if yield(i) }
-      result
+
+    result = []
+    my_each { |i| result.push(i) if yield(i) }
+    result
   end
 
   def my_all?
@@ -53,9 +55,10 @@ module Enumerable
 
   def my_map(&block)
     return to_enum(:my_map) unless block_given?
-      arr = []
-      my_each { |i| result.push(block.call(i)) }
-      arr
+
+    arr = []
+    my_each { |i| result.push(block.call(i)) }
+    arr
   end
 
   def my_inject
