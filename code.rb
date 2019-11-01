@@ -75,12 +75,11 @@ module Enumerable
     my_select { |x| yield(x) }.size
   end
 
-  def my_map(&block)
-    return to_enum(:my_map) unless block_given?
+  def my_map(&proc)
 
     arr = []
-    my_each { |i| result.push(block.call(i)) }
-    arr
+		my_each { |i| arr << proc.call(i) }
+		arr
   end
 
   def my_inject
