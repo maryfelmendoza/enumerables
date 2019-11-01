@@ -73,11 +73,11 @@ module Enumerable
 
   def my_count
     total = 0
-    my_each do |i| 
-      if yield i 
-        total += 1 
+    my_each do |i|
+      if yield i
+        total += 1
       end
-    end 
+    end
     total
   end
 
@@ -99,8 +99,3 @@ module Enumerable
     arr.my_inject { |x, y| x * y }
   end
 end
-
-p [1,2,3,4,4,7,7,7,9].my_count { |i| i > 1 }
-puts
-p [1,2,3,4,4,7,7,7,9].count { |i| i > 1 }
-puts
