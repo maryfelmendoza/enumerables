@@ -95,4 +95,3 @@ module Enumerable
     arr.my_inject(1) { |x, y| x * y }
   end
 end
-
