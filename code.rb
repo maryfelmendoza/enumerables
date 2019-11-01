@@ -92,6 +92,7 @@ module Enumerable
   end
 
   def multiply_els(arr)
-    arr.my_inject { |x, y| x * y }
+    arr.my_inject(1) { |x, y| x * y }
   end
 end
+
