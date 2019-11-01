@@ -77,8 +77,8 @@ module Enumerable
 
   def my_map(&proc)
     arr = []
-		my_each { |i| arr << proc.call(i) }
-		arr
+    my_each { |i| arr << proc.call(i) }
+    arr
   end
 
   def my_inject
