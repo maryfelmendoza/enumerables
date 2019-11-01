@@ -76,7 +76,6 @@ module Enumerable
   end
 
   def my_map(&proc)
-
     arr = []
 		my_each { |i| arr << proc.call(i) }
 		arr
