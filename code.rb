@@ -72,7 +72,7 @@ module Enumerable
   end
 
   def my_count
-    my_select {|x| yield(x) }.size
+    my_select { |x| yield(x) }.size
   end
 
   def my_map(&block)
