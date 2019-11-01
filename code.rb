@@ -95,9 +95,3 @@ module Enumerable
     arr.my_inject { |x, y| x * y }
   end
 end
-
-
-p [1,2,3,4,4,7,7,0,9].my_count { |i| i > 1 }
-puts
-p [1,2,3,4,4,7,7,0,9].count { |i| i > 1 }
-puts
