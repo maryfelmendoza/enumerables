@@ -86,12 +86,13 @@ module Enumerable
   end
 
   def my_inject
-    memo = self[0]
+    memo = 0
     my_each { |i| memo = yield(memo, i) }
     memo
   end
 
   def multiply_els(arr)
-    arr.my_inject(1) { |x, y| x * y }
+    arr.my_inject { |x, y| x * y }
   end
 end
+
