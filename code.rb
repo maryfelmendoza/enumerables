@@ -2,39 +2,32 @@
 
 module Enumerable
   def my_each
-    if block_given?
-      i = 0
-      while i < size
-        yield(self[i])
-        i += 1
-      end
-      self
-    else
-      puts "You didn't send a block in"
+    return to_enum(:my_each) unless block_given?
+    arr = self.class == Array ? self : to_a  
+    i = 0
+    while i < size
+      yield(arr[i])
+      i += 1
     end
+    self
   end
 
   def my_each_with_index
-    if block_given?
-      i = 0
-      while i < size
-        yield(self[i], i)
-        i += 1
-      end
-      self
-    else
-      puts "You didn't send a block in"
+    return to_enum(:my_each_with_index) unless block_given?
+
+    i = 0
+    while i < size
+      yield(self[i], i)
+      i += 1
     end
+    self
   end
 
   def my_select
-    if block_given?
+    return(:my_select) unless block_given?
       result = []
       my_each { |i| result.push(i) if yield(i) }
       result
-    else
-      puts "You didn't send a block in"
-    end
   end
 
   def my_all?
@@ -59,13 +52,10 @@ module Enumerable
   end
 
   def my_map(&block)
-    if block_given?
+    return to_enum(:my_map) unless block_given?
       arr = []
       my_each { |i| result.push(block.call(i)) }
       arr
-    else
-      puts "You didn't send a block in"
-    end
   end
 
   def my_inject
