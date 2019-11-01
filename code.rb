@@ -67,7 +67,7 @@ module Enumerable
     memo
   end
 
-  def multiply_els
+  def multiply_els (arr)
     arr.my_inject { |x, y| x * y }
   end
 end
