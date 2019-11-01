@@ -86,8 +86,8 @@ module Enumerable
     my_each { |i| memo = yield(memo, i) }
     memo
   end
+end
 
-  def multiply_els(arr)
-    arr.my_inject { |x, y| x * y }
-  end
+def multiply_els(arr)
+  arr.my_inject { |x, y| x * y }
 end
