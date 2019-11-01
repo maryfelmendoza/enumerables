@@ -32,41 +32,41 @@ module Enumerable
     result
   end
 
-  def my_all? (pattern = nil)
+  def my_all?(pattern = nil)
     if block_given?
-    my_each { |i| return false unless yield(i) }
+      my_each { |i| return false unless yield(i) }
     elsif pattern
-      my_each do |i| 
+      my_each do |i|
         return false unless pattern_match?(i, pattern)
       end
     else
-      my_each { |i| return false unless (i) }
+      my_each { |i| return false unless i }
     end
     true
   end
 
-  def my_any? (pattern = nil)
+  def my_any?(pattern = nil)
     if block_given?
-    my_each { |i| return true if yield(i) }
+      my_each { |i| return true if yield(i) }
     elsif pattern
       my_each do |i|
         return true if pattern_match?(i, pattern)
       end
     else
-      my_each { |i| return true if (i) }
+      my_each { |i| return true if i }
     end
-      false
+    false
   end
 
-  def my_none? (pattern = nil)
+  def my_none?(pattern = nil)
     if block_given?
-    my_each { |i| return false if yield(i) }
+      my_each { |i| return false if yield(i) }
     elsif pattern
       my_each do |i|
-        return false if pattern_match?(i,pattern)
+        return false if pattern_match?(i, pattern)
       end
     else
-      my_each { |i| return false if (i) }
+      my_each { |i| return false if i }
     end
     true
   end
@@ -95,6 +95,3 @@ module Enumerable
     arr.my_inject { |x, y| x * y }
   end
 end
-
-p ['lpha', 'pple', 'allen key'].any?{ |x| x[0] == 'a' }
-puts
