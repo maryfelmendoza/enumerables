@@ -83,31 +83,23 @@ module Enumerable
   end
 
   def my_none?(val = nil)
-
     none = true
 
     if block_given?
-
-        my_each do |element|
-
-            none = false if yield(element)
-
-        end
+      my_each do |element|
+        none = false if yield(element)
+      end
 
     elsif val
 
         my_each do |element|
-
-            none = false if element == val
-
+          none = false if element == val
         end
 
     else
 
         my_each do |element|
-
-            none = false if element
-
+          none = false if element
         end
 
     end
