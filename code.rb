@@ -25,57 +25,121 @@ module Enumerable
   end
 
   def my_select
-    return(:my_select) unless block_given?
+    return to_enum(:my_select) unless block_given?
 
     result = []
     my_each { |i| result.push(i) if yield(i) }
     result
   end
 
-  def my_all?(pattern = nil)
-    if block_given?
-      my_each { |i| return false unless yield(i) }
-    elsif pattern
-      my_each do |i|
-        return false unless pattern_match?(i, pattern)
-      end
-    else
-      my_each { |i| return false unless i }
-    end
-    true
-  end
+  def my_all?(val = nil)
 
-  def my_any?(pattern = nil)
-    if block_given?
-      my_each { |i| return true if yield(i) }
-    elsif pattern
-      my_each do |i|
-        return true if pattern_match?(i, pattern)
-      end
-    else
-      my_each { |i| return true if i }
-    end
-    false
-  end
+    all_true = true
 
-  def my_none?(pattern = nil)
     if block_given?
-      my_each { |i| return false if yield(i) }
-    elsif pattern
-      my_each do |i|
-        return false if pattern_match?(i, pattern)
+
+      my_each do |element|
+
+        all_true = false unless yield(element)
+
       end
+
+    elsif val
+
+      my_each do |element|
+
+        all_true = false unless element == val
+
+      end
+
     else
-      my_each { |i| return false if i }
+
+      my_each do |element|
+
+        all_true = false unless element
+
+      end
+
     end
-    true
-  end
+
+  all_true
+
+end
+
+def my_any?(val = nil)
+
+    any = false
+
+    if block_given?
+
+        my_each do |element|
+
+            any = true if yield(element)
+
+        end
+
+    elsif val
+
+        my_each do |element|
+
+            any = true if element == val
+
+        end
+
+    else
+
+        my_each do |element|
+
+            any = true if element
+
+        end
+
+    end
+
+    any
+
+end
+
+def my_none?(val = nil)
+
+    none = true
+
+    if block_given?
+
+        my_each do |element|
+
+            none = false if yield(element)
+
+        end
+
+    elsif val
+
+        my_each do |element|
+
+            none = false if element == val
+
+        end
+
+    else
+
+        my_each do |element|
+
+            none = false if element
+
+        end
+
+    end
+
+    none
+
+end
 
   def my_count
     my_select { |x| yield(x) }.size
   end
 
   def my_map(&proc)
+    return to_enum(:my_map) unless block_given?
     arr = []
     my_each { |i| arr << proc.call(i) }
     arr
@@ -91,3 +155,4 @@ end
 def multiply_els(arr)
   arr.my_inject { |x, y| x * y }
 end
+
