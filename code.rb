@@ -59,13 +59,12 @@ module Enumerable
   end
 
   def my_any?(val = nil)
-
     any = false
 
     if block_given?
-        my_each do |element|
-            any = true if yield(element)
-        end
+      my_each do |element|
+        any = true if yield(element)
+      end
 
     elsif val
       my_each do |element|
@@ -137,4 +136,3 @@ end
 def multiply_els(arr)
   arr.my_inject { |x, y| x * y }
 end
-
