@@ -55,11 +55,10 @@ module Enumerable
 
     end
 
-  all_true
+    all_true
+  end
 
-end
-
-def my_any?(val = nil)
+  def my_any?(val = nil)
 
     any = false
 
@@ -82,10 +81,9 @@ def my_any?(val = nil)
     end
 
     any
+  end
 
-end
-
-def my_none?(val = nil)
+  def my_none?(val = nil)
 
     none = true
 
@@ -116,8 +114,7 @@ def my_none?(val = nil)
     end
 
     none
-
-end
+  end
 
   def my_count
     my_select { |x| yield(x) }.size
