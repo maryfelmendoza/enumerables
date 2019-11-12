@@ -92,15 +92,15 @@ module Enumerable
 
     elsif val
 
-        my_each do |element|
-          none = false if element == val
-        end
+      my_each do |element|
+        none = false if element == val
+      end
 
     else
 
-        my_each do |element|
-          none = false if element
-        end
+      my_each do |element|
+        none = false if element
+      end
 
     end
 
@@ -112,7 +112,9 @@ module Enumerable
   end
 
   def my_map(&proc)
+    
     return to_enum(:my_map) unless block_given?
+
     arr = []
     my_each { |i| arr << proc.call(i) }
     arr
