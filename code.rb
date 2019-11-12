@@ -33,31 +33,24 @@ module Enumerable
   end
 
   def my_all?(val = nil)
-
     all_true = true
 
     if block_given?
 
       my_each do |element|
-
         all_true = false unless yield(element)
-
       end
 
     elsif val
 
       my_each do |element|
-
         all_true = false unless element == val
-
       end
 
     else
 
       my_each do |element|
-
         all_true = false unless element
-
       end
 
     end
@@ -71,28 +64,20 @@ def my_any?(val = nil)
     any = false
 
     if block_given?
-
         my_each do |element|
-
             any = true if yield(element)
-
         end
 
     elsif val
-
-        my_each do |element|
-
-            any = true if element == val
-
-        end
+      my_each do |element|
+        any = true if element == val
+      end
 
     else
 
-        my_each do |element|
-
-            any = true if element
-
-        end
+      my_each do |element|
+        any = true if element
+      end
 
     end
 
