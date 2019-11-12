@@ -112,7 +112,6 @@ module Enumerable
   end
 
   def my_map(&proc)
-    
     return to_enum(:my_map) unless block_given?
 
     arr = []
