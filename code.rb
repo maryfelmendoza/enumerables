@@ -1,5 +1,3 @@
-
-
 module Enumerable
   def my_each
     size = self.size
@@ -128,7 +126,7 @@ module Enumerable
 
     end
 
-    total 
+    total
   end
 
   def my_map(my_proc = nil)
