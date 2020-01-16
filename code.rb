@@ -1,8 +1,8 @@
-# frozen_string_literal: true
+
 
 module Enumerable
   def my_each
-    
+
     size = self.size
     index = 0
 
@@ -14,7 +14,7 @@ module Enumerable
   end
 
   def my_each_with_index
-    
+
     size = self.size
     index = 0
 
@@ -26,7 +26,7 @@ module Enumerable
   end
 
   def my_select
-    
+
     new_array = []
 
     my_each do |x|
@@ -34,7 +34,6 @@ module Enumerable
     end
 
     new_array
-
   end
 
   def my_all?(val = nil)
@@ -113,7 +112,6 @@ module Enumerable
   end
 
   def my_count(val = nil)
-
     total = 0
 
     if block_given?
@@ -138,7 +136,6 @@ module Enumerable
   end
 
   def my_map(my_proc = nil)
-
     new_array = []
 
     if my_proc
