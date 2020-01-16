@@ -2,34 +2,39 @@
 
 module Enumerable
   def my_each
-    return to_enum(:my_each) unless block_given?
+    
+    size = self.size
+    index = 0
 
-    arr = self.class == Array ? self : to_a
-    i = 0
-    while i < size
-      yield(arr[i])
-      i += 1
+    while index < size
+
+      yield(self[index])
+      index += 1
     end
-    self
   end
 
   def my_each_with_index
-    return to_enum(:my_each_with_index) unless block_given?
+    
+    size = self.size
+    index = 0
 
-    i = 0
-    while i < size
-      yield(self[i], i)
-      i += 1
+    while index < size
+
+      yield(self[index], index)
+      index += 1
     end
-    self
   end
 
   def my_select
-    return to_enum(:my_select) unless block_given?
+    
+    new_array = []
 
-    result = []
-    my_each { |i| result.push(i) if yield(i) }
-    result
+    my_each do |x|
+      new_array.push(x) if yield(x)
+    end
+
+    new_array
+
   end
 
   def my_all?(val = nil)
@@ -37,20 +42,20 @@ module Enumerable
 
     if block_given?
 
-      my_each do |element|
-        all_true = false unless yield(element)
+      my_each do |x|
+        all_true = false unless yield(x)
       end
 
     elsif val
 
-      my_each do |element|
-        all_true = false unless element == val
+      my_each do |x|
+        all_true = false unless x == val
       end
 
     else
 
-      my_each do |element|
-        all_true = false unless element
+      my_each do |x|
+        all_true = false unless x
       end
 
     end
@@ -62,19 +67,19 @@ module Enumerable
     any = false
 
     if block_given?
-      my_each do |element|
-        any = true if yield(element)
+      my_each do |x|
+        any = true if yield(x)
       end
 
     elsif val
-      my_each do |element|
-        any = true if element == val
+      my_each do |x|
+        any = true if x == val
       end
 
     else
 
-      my_each do |element|
-        any = true if element
+      my_each do |x|
+        any = true if x
       end
 
     end
@@ -86,20 +91,20 @@ module Enumerable
     none = true
 
     if block_given?
-      my_each do |element|
-        none = false if yield(element)
+      my_each do |x|
+        none = false if yield(x)
       end
 
     elsif val
 
-      my_each do |element|
-        none = false if element == val
+      my_each do |x|
+        none = false if x == val
       end
 
     else
 
-      my_each do |element|
-        none = false if element
+      my_each do |x|
+        none = false if x
       end
 
     end
@@ -107,25 +112,83 @@ module Enumerable
     none
   end
 
-  def my_count
-    my_select { |x| yield(x) }.size
+  def my_count(val = nil)
+
+    total = 0
+
+    if block_given?
+      my_each do |x|
+        total += 1 if yield(x)
+      end
+
+    elsif val
+
+      my_each do |x|
+        total += 1 if x == val
+      end
+
+    else
+
+      total = length
+
+    end
+
+    total
+    
   end
 
-  def my_map(&proc)
-    return to_enum(:my_map) unless block_given?
+  def my_map(my_proc = nil)
 
-    arr = []
-    my_each { |i| arr << proc.call(i) }
-    arr
+    new_array = []
+
+    if my_proc
+      my_each do |x|
+        new_array.push(my_proc.call(x))
+      end
+
+    else
+
+      my_each do |x|
+
+        new_array.push(yield(x))
+      end
+    end
+
+    new_array
+    
   end
 
-  def my_inject
-    memo = 0
-    my_each { |i| memo = yield(memo, i) }
-    memo
+  def my_inject(init = nil, proc = nil)
+    
+    if init && block_given?
+
+      my_each do |x|
+        init = yield(init, x)
+      end
+
+    elsif init.nil? && block_given?
+
+      init = self[0]
+
+      my_each_with_index do |x, index|
+
+        init = yield(init, x) unless index.zero?
+      end
+    
+    else
+
+      my_each do |x|
+        init = proc.to_proc.call(init, x)
+      end
+    end
+    
+    init
+
   end
 end
 
-def multiply_els(arr)
-  arr.my_inject { |x, y| x * y }
+def multiply_els(array)
+  array.my_inject { |x, y| x * y }
 end
+
+puts multiply_els([2, 4, 5])
