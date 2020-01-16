@@ -2,7 +2,6 @@
 
 module Enumerable
   def my_each
-
     size = self.size
     index = 0
 
@@ -14,7 +13,6 @@ module Enumerable
   end
 
   def my_each_with_index
-
     size = self.size
     index = 0
 
@@ -26,7 +24,6 @@ module Enumerable
   end
 
   def my_select
-
     new_array = []
 
     my_each do |x|
@@ -131,8 +128,7 @@ module Enumerable
 
     end
 
-    total
-    
+    total 
   end
 
   def my_map(my_proc = nil)
@@ -146,17 +142,14 @@ module Enumerable
     else
 
       my_each do |x|
-
         new_array.push(yield(x))
       end
     end
 
     new_array
-    
   end
 
   def my_inject(init = nil, proc = nil)
-    
     if init && block_given?
 
       my_each do |x|
@@ -168,19 +161,15 @@ module Enumerable
       init = self[0]
 
       my_each_with_index do |x, index|
-
         init = yield(init, x) unless index.zero?
       end
-    
     else
 
       my_each do |x|
         init = proc.to_proc.call(init, x)
       end
     end
-    
     init
-
   end
 end
 
