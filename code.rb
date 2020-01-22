@@ -103,27 +103,17 @@ module Enumerable
     resp
   end
 
-  def my_count(val = nil)
-    total = 0
+  def my_count(arg = nil)
+    arr = self
+    return arr.length unless block_given? || arg
 
-    if block_given?
-      my_each do |x|
-        total += 1 if yield(x)
-      end
-
-    elsif val
-
-      my_each do |x|
-        total += 1 if x == val
-      end
-
+    counter = 0
+    if arg
+      arr.my_each { |val| counter += 1 if val == arg }
     else
-
-      total = length
-
+      arr.my_each { |val| counter += 1 if yield(val) }
     end
-
-    total
+    counter
   end
 
   def my_map(my_proc = nil)
