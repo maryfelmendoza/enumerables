@@ -23,13 +23,16 @@ module Enumerable
   end
 
   def my_select
-    new_array = []
-
-    my_each do |x|
-      new_array.push(x) if yield(x)
+    if block_given?
+      arr = self
+      result = []
+      0.upto(arr.length - 1) do |i|
+        result << arr[i] if yield(arr[i])
+      end
+      result
+    else
+      arr.to_enum
     end
-
-    new_array
   end
 
   def my_all?(val = nil)
