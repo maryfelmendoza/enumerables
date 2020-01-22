@@ -116,22 +116,16 @@ module Enumerable
     counter
   end
 
-  def my_map(my_proc = nil)
-    new_array = []
+  def my_map(a_proc = nil)
+    arr = self
+    return to_enum(:my_map) unless block_given?
 
-    if my_proc
-      my_each do |x|
-        new_array.push(my_proc.call(x))
-      end
-
+    if a_proc.nil?
+      arr.my_each_with_index { |v, i| arr[i] = yield(v) }
     else
-
-      my_each do |x|
-        new_array.push(yield(x))
-      end
+      arr.my_each_with_index { |v, i| arr[i] = a_proc.call(v) }
     end
-
-    new_array
+    arr
   end
 
   def my_inject(init = to_a[0], oper = :+)
