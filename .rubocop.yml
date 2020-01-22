@@ -1,34 +1,46 @@
-  
 AllCops:
   Exclude:
-    - "bin/*"
-    - "db/**/*"
-    - "config/**/*"
+    - "README.md"
     - "Guardfile"
     - "Rakefile"
-    - "node_modules/**/*"
+
   DisplayCopNames: true
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
 Metrics/MethodLength:
-  Include: ["app/controllers/*"]
   Max: 20
 Metrics/AbcSize:
-  Include: ["app/controllers/*"]
-  Max: 30
+  Max: 50
+Metrics/CyclomaticComplexity:
+  Max: 8
 Metrics/ClassLength:
   Max: 150
 Metrics/BlockLength:
-  ExcludedMethods: ["describe"]
+  ExcludedMethods: ['describe']
+  Max: 30
+Metrics/ModuleLength:
+  Max: 200
+
 
 Style/Documentation:
   Enabled: false
 Style/ClassAndModuleChildren:
   Enabled: false
+Style/EachForSimpleLoop:
+  Enabled: false
+Style/AndOr:
+  Enabled: false
+Style/DefWithParentheses:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never
 
 Layout/ExtraSpacing:
   AllowForAlignment: false
 Layout/MultilineMethodCallIndentation:
   Enabled: true
   EnforcedStyle: indented
+
+Style/BlockComments:
+  Enabled: false
