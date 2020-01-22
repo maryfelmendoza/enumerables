@@ -12,13 +12,13 @@ module Enumerable
   end
 
   def my_each_with_index
-    size = self.size
-    index = 0
-
-    while index < size
-
-      yield(self[index], index)
-      index += 1
+    if block_given?
+      arr = self
+      0.upto(arr.length - 1) do |i|
+        yield(arr[i], i)
+      end
+    else
+      arr.to_enum
     end
   end
 
