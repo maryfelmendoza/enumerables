@@ -59,7 +59,7 @@ module Enumerable
   def my_any?(arg = nil)
     resp = false
     return false if to_a.nil?
-    return true  if self.class.to_s == 'Hash' && !block_given?
+    return true if self.class.to_s == 'Hash' && !block_given?
 
     if block_given?
       to_a.my_each { |val| resp = true if yield(val) }
