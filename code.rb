@@ -56,28 +56,29 @@ module Enumerable
     resp
   end
 
-  def my_any?(val = nil)
-    any = false
+  def my_any?(arg = nil)
+    resp = false
+    return false if to_a.nil?
+    return true  if self.class.to_s == 'Hash' && !block_given?
 
     if block_given?
-      my_each do |x|
-        any = true if yield(x)
-      end
-
-    elsif val
-      my_each do |x|
-        any = true if x == val
-      end
-
+      to_a.my_each { |val| resp = true if yield(val) }
+    elsif arg.nil?
+      to_a.my_each { |val| resp = true if val }
     else
-
-      my_each do |x|
-        any = true if x
+      case arg.class.to_s
+      when 'Regexp'
+        puts 'regex'
+        to_a.my_each { |val| resp = true if arg.match? val.to_s }
+      when 'Class'
+        puts 'class'
+        to_a.my_each { |val| resp = true if val.is_a? arg }
+      else
+        puts 'else'
+        to_a.my_each { |val| return resp = true if val == arg }
       end
-
     end
-
-    any
+    resp
   end
 
   def my_none?(val = nil)
