@@ -146,27 +146,18 @@ module Enumerable
     new_array
   end
 
-  def my_inject(init = nil, proc = nil)
-    if init && block_given?
-
-      my_each do |x|
-        init = yield(init, x)
-      end
-
-    elsif init.nil? && block_given?
-
-      init = self[0]
-
-      my_each_with_index do |x, index|
-        init = yield(init, x) unless index.zero?
-      end
-    else
-
-      my_each do |x|
-        init = proc.to_proc.call(init, x)
-      end
+  def my_inject(init = to_a[0], oper = :+)
+    if init.is_a? Symbol
+      oper = init
+      init = to_a[0]
     end
-    init
+    accum = init
+    if block_given?
+      to_a.my_each { |val| accum = yield(accum, val) }
+    else
+      to_a.my_each { |val| accum = accum.send(oper, val) }
+    end
+    accum
   end
 end
 
