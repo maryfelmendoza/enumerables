@@ -35,26 +35,39 @@ module Enumerable
     end
   end
 
-  def my_all?(arg = nil)
-    resp = true
-    return true if to_a.nil? || (self.class.to_s == 'Hash' && !block_given?)
+  def my_all(val = nil)
+
+    all_true = true
 
     if block_given?
-      to_a.my_each { |val| resp = false unless yield(val) }
-    elsif arg.nil?
-      to_a.my_each { |val| resp = false unless val }
+
+        my_each do |element|
+
+            all_true = false unless yield(element)
+
+        end
+
+    elsif val
+
+        my_each do |element|
+
+            all_true = false unless element == val
+
+        end
+
     else
-      case arg.class.to_s
-      when 'Regexp'
-        to_a.my_each { |val| resp = false unless arg.match? val.to_s }
-      when 'Class'
-        to_a.my_each { |val| resp = false unless val.is_a? arg }
-      else
-        to_a.my_each { |val| return resp = false unless val == arg }
-      end
+
+        my_each do |element|
+
+            all_true = false unless element
+
+        end
+
     end
-    resp
-  end
+
+    all_true
+
+end
 
   def my_any?(val = nil)
     any = false
