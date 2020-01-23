@@ -128,18 +128,46 @@ module Enumerable
     arr
   end
 
-  def my_inject(init = to_a[0], oper = :+)
-    if init.is_a? Symbol
-      oper = init
-      init = to_a[0]
-    end
-    accum = init
-    if block_given?
-      to_a.my_each { |val| accum = yield(accum, val) }
+  def my_inject(cont = nil, symb = nil)
+    if (cont.is_a? Symbol) || (symb.is_a? Symbol)
+      if cont.is_a? Symbol
+        case cont
+        when :+
+          c = 0
+          my_each { |elem| c += elem }
+        when :-
+          c = self[0]
+          self[1..-1].my_each { |elem| c -= elem }
+        when :*
+          c = self[0]
+          self[1..-1].my_each { |elem| c *= elem }
+        when :/
+          c = self[0]
+          self[1..-1].my_each { |elem| c /= elem }
+        end
+        c
+      elsif cont.is_a? Numeric
+        case symb
+        when :+
+          my_each { |elem| cont += elem }
+        when :-
+          my_each { |elem| cont -= elem }
+        when :*
+          my_each { |elem| cont *= elem }
+        when :/
+          my_each { |elem| cont /= elem }
+        end
+        cont
+      else
+        "undefined method for #{cont}:#{cont.class}"
+      end
+    elsif block_given?
+      cont ||= 0
+      my_each { |elem| cont = yield(cont, elem) }
+      cont
     else
-      to_a.my_each { |val| accum = accum.send(oper, val) }
+      'no block given (LocalJumpError)'
     end
-    accum
   end
 end
 
